@@ -22,7 +22,9 @@ The official archive was downloaded and profiled. It is about 29.4 MB. The main 
 I could not find an accessible HUD LIHTC dataset in BigQuery Public Data from my course environment. The official download is accessible, so I am requesting approval for the external-source route before P1. HUD publishes the database for public access. No separate license file was included in the archive, so public availability is the use-rights evidence submitted for review. I will credit HUD and the release, and keep source rows and extracts out of Git.
 After approval, the plan is to convert the workbook to UTF-8 CSV, upload it to an authorized Cloud Storage bucket, and load Lucky SEIS 732.seis732_lihtc.projects. The proposed bucket name is lihtc-hud-data-lucky; its availability and course permissions still need confirmation. The actual project, bucket, and region will be recorded after setup.
 The raw schema will preserve all 80 source columns as STRING, including IDs and special year codes. Numeric fields will be converted for analysis. The scripts, schema, and ingestion checklist are included in the repository. These cloud objects are proposed, not already created.
+
 5. Quick source profile
+   
 The results below come from local profiling of the official workbook. They are not BigQuery query results. The source has ~55,345 records nationwide, including ~1,144 in Minnesota.
 Minnesota check	Observed result
 Project records	~1,144
