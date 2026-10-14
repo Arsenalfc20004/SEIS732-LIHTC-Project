@@ -1,1 +1,53 @@
+# Python / Node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Downloaded source data and extracts
+# Allow only the source schema and aggregate profile JSON in Git.
+data/
+downloads/
+exports/
+extracts/
+tmp/
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.xlsx
+*.xls
+*.accdb
+*.zip
+*.db
+*.sqlite
+*.json
+!schema/hud_raw_schema.json
+!evidence/p0-local-profile.json
+
+# Credentials / local secrets
+.env
+.env.*
+secrets/
+.secrets/
+*.key
+*.pem
+*.p12
+*.token
+*.credentials
+*.secret
+*credentials*.json
+service-account-*.json
+*service-account*.json
+*service_account*.json
+*token*.json
+gcloud-config/
+.config/gcloud/
 
