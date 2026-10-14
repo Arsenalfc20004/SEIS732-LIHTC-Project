@@ -1,21 +1,33 @@
 # Affordable Housing in Minnesota
 
-This repository contains my SEIS 732 individual data-product project for P0-P4. I am using Minnesota as a case study to explore the history of affordable-housing projects in the U.S. Department of Housing and Urban Development (HUD) Low-Income Housing Tax Credit (LIHTC) database.
+This is my SEIS 732 individual data-product project for P0-P4. I am using Minnesota as a case study to explore the history and geographic distribution of affordable-housing projects in HUD's Low-Income Housing Tax Credit (LIHTC) database.
 
-My intended user is a Minnesota Housing program analyst reviewing where LIHTC projects are located, how recorded project activity has changed, and how reported low-income units are distributed. I plan to build a BigQuery model and a dashboard to support that historical review.
+My intended user is a Minnesota Housing program analyst reviewing where LIHTC projects are located, how recorded project activity has changed over time, and how reported low-income units are distributed. I plan to build a BigQuery model and a Looker Studio dashboard for that historical review.
 
-## Current scope: P0 feasibility
+## Current stage: P0 feasibility
 
-The official HUD workbook contains 55,345 project records nationwide, including 1,144 in Minnesota. The initial profile was completed locally using the supplied script. The BigQuery load will follow instructor approval.
+The official HUD workbook was profiled locally. It contains 55,345 project records nationwide, including 1,144 in Minnesota. The proposal and evidence summarize the source checks, limitations, and next modeling decision.
 
-I could not find an accessible HUD LIHTC dataset in BigQuery Public Data from my course environment, so I am requesting approval to use HUD's official download as an external source. After approval, the proposed process is to convert the main workbook to CSV, upload it to Cloud Storage, and load it into BigQuery.
+I could not find an accessible HUD LIHTC dataset in BigQuery Public Data from my course environment. I am requesting approval to use HUD's official download as an external source. The Cloud Storage upload and BigQuery load are planned after that approval.
 
-The package also includes supporting scripts, the raw schema, and the aggregate profile JSON for reproducibility.
+## Planned cloud destination
 
-## P0 files
+My proposed raw table is `SEIS-HUD_LIHTC.Projects`, with the CSV at `gs://lihtc-hud-data-seis732/projects.csv`. I plan to use the `US` multi-region for the bucket and dataset. These names and the location remain subject to course authorization and availability. I will update them consistently if the approved resources differ.
 
-- [Feasibility proposal](docs/p0-feasibility.md)
-- [Ingestion checklist](docs/ingestion-checklist.md)
-- [Feasibility SQL](sql/00_feasibility.sql)
-- [Summarized evidence](evidence/p0-feasibility-results.md)
-- [External-source request](docs/hud-source-approval-request.md)
+## Project files
+
+| File | Purpose |
+| --- | --- |
+| [P0 feasibility proposal](docs/p0-feasibility.md) | Audience, questions, source fit, evidence, risks, and first P1 decision |
+| [Ingestion checklist](docs/ingestion-checklist.md) | Proposed download, conversion, Cloud Storage, and BigQuery loading process |
+| [Feasibility SQL](sql/00_feasibility.sql) | Reproducible schema, count, key, year, geography, and unit checks after loading |
+| [Feasibility results](evidence/p0-feasibility-results.md) | Compact local source evidence and the status of cloud validation |
+| [External-source request](docs/external-source-request.md) | Request for instructor approval before P1 |
+
+The root `.gitignore` excludes downloaded data, extracts, local settings, and credentials. Keep source rows and the HUD workbook outside Git; submit code and aggregate evidence.
+
+## Submission
+
+These seven repository files are the P0 submission package. Submit the exact GitHub commit or tag link required by the course. If the repository is private, add instructor **37chandler** as a collaborator.
+
+The external-source request is included for instructor review. Approval is required before P1.
