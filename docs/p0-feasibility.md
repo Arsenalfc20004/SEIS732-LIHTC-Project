@@ -58,14 +58,14 @@ The source provenance and local results are documented in `evidence/p0-feasibili
 ## 6. Need-to-source fit
 
 | Proposed question | Needed fields or concepts | Candidate source object | Why the source appears sufficient | Gap or assumption to test in P1 |
-
+| --- | --- | --- | --- | --- |
 | Cities with the most recorded projects and low-income units | State, city, project ID, valid service year, low-income units | `LIHTCPUB.xlsx`, `Data` | Minnesota has 1,144 records with complete IDs and city labels | Standardize cities and decide how repeated financing affects unit totals |
 | Recorded project counts over time | State, project ID, service year | Same main sheet | 1,143 Minnesota records have usable years from 1987 through 2024 | Choose year or decade views and keep unknown years separate |
 | Low-income share of reported project units by city | City, total units, low-income units | Same main sheet | Both unit fields are populated for Minnesota records | Use matching eligible records and resolve the two inconsistent unit records |
 
 ## 7. Feasibility risks and response
 
-1. **External-source approval and loading.** The official file is accessible and locally profiled, but an accessible public BigQuery dataset was not found in the course environment. I will submit the source and ingestion plan for approval before P1, then reconcile the loaded schema and counts.
+1. **External-source approval and loading.** The official file is accessible and locally profiled, but an accessible public BigQuery dataset was not found. I will submit the source and ingestion plan for approval before P1, then reconcile the loaded schema and counts.
 2. **Repeated physical units.** Unique project IDs do not guarantee unique physical properties across financing rounds. I will preserve the resyndication flag and describe sums as reported project activity. I will resolve the counting policy before presenting unit totals.
 3. **Data quality and interpretation.** Minnesota has one unknown service year and two inconsistent unit records. City names also need review. I will separate unknown years, flag inconsistent units, standardize city labels, and use the same records for both parts of a unit-share calculation.
 
