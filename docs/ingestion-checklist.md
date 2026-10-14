@@ -179,4 +179,9 @@ For low-income unit shares, I will use the same eligible records in the numerato
 
 I will begin P1 modeling after instructor approval and the required load validation.
 
-Technical references: [CSV loading](https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv), [schema definition and export](https://docs.cloud.google.com/bigquery/docs/schemas), and [Google Cloud project IDs](https://docs.cloud.google.com/resource-manager/docs/creating-managing-projects).
+
+
+## References: 
+CSV loading (https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv)
+schema definition and export (https://docs.cloud.google.com/bigquery/docs/schemas)
+Google Cloud project IDs (https://docs.cloud.google.com/resource-manager/docs/creating-managing-projects).
