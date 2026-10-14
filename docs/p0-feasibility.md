@@ -44,3 +44,33 @@ Missing total / low-income unit counts	0 / 0
 Low-income units greater than total units	2
 Blank city labels	0
 City labels after trimming and uppercasing 266 distinct labels
+
+One row represents a HUD project record in this downloaded release. `hud_id` is unique in the file, but that does not establish unique physical properties across financing rounds. Multiple snapshots would need a release-plus-project-ID key.
+
+Minnesota's usable service years span 1987-2024. One record uses `yr_pis = 9999`, indicating confirmed placed-in-service status with a missing year. That code will be preserved and excluded from the initial trend analysis. The raw field is a year, not a full transaction date.
+
+The main fields are `hud_id`, `proj_st`, `proj_cty`, `yr_pis`, `n_units`, `li_units`, `fips2020`, and `resyndication_cd`. City spelling and postal-city meanings need review. There are 174 Minnesota tract codes containing `X` placeholders. Thirty-four records are flagged as resyndicated, while 681 have an unreported flag; a blank flag will not be treated as "No."
+
+HUD updates the database and can revise earlier records. The initial product uses one snapshot, with a later course change case if needed. The selected source describes projects rather than individual tenants, and the dashboard will show aggregate results.
+
+The source provenance and local results are documented in `evidence/p0-feasibility-results.md`. After approval and loading, I will run `sql/00_feasibility.sql`, check estimated bytes before each query, and compare the imported counts with the local profile.
+
+## 6. Need-to-source fit
+
+| Proposed question | Needed fields or concepts | Candidate source object | Why the source appears sufficient | Gap or assumption to test in P1 |
+| --- | --- | --- | --- | --- |
+| Cities with the most recorded projects and low-income units | State, city, project ID, valid service year, low-income units | `LIHTCPUB.xlsx`, `Data` | Minnesota has 1,144 records with complete IDs and city labels | Standardize cities and decide how repeated financing affects unit totals |
+| Recorded project counts over time | State, project ID, service year | Same main sheet | 1,143 Minnesota records have usable years from 1987 through 2024 | Choose year or decade views and keep unknown years separate |
+| Low-income share of reported project units by city | City, total units, low-income units | Same main sheet | Both unit fields are populated for Minnesota records | Use matching eligible records and resolve the two inconsistent unit records |
+
+## 7. Feasibility risks and response
+
+1. **External-source approval and loading.** The official file is accessible and locally profiled, but an accessible public BigQuery dataset was not found in the course environment. I will submit the source and ingestion plan for approval before P1, then reconcile the loaded schema and counts.
+2. **Repeated physical units.** Unique project IDs do not guarantee unique physical properties across financing rounds. I will preserve the resyndication flag and describe sums as reported project activity. I will resolve the counting policy before presenting unit totals.
+3. **Data quality and interpretation.** Minnesota has one unknown service year and two inconsistent unit records. City names also need review. I will separate unknown years, flag inconsistent units, standardize city labels, and use the same records for both parts of a unit-share calculation.
+
+**Fallback:** If unit measures cannot be used reliably, I will narrow the dashboard to project-record counts by Minnesota city and service year using the same source. If the external source is not approved, I will select an accessible public BigQuery source and verify its fit before P1.
+
+## 8. First P1 decision
+
+My first decision will be how repeated financing rounds should affect unit counts. The starting grain is one HUD project record per downloaded release. I need to decide whether unit measures describe all recorded activity or a clearly defined subset, and explain that choice before reporting totals.
