@@ -183,5 +183,7 @@ I will begin P1 modeling after instructor approval and the required load validat
 
 ## References: 
 CSV loading (https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv)
+
 schema definition and export (https://docs.cloud.google.com/bigquery/docs/schemas)
+
 Google Cloud project IDs (https://docs.cloud.google.com/resource-manager/docs/creating-managing-projects).
