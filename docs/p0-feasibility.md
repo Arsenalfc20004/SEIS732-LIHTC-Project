@@ -28,7 +28,9 @@ The source is the HUD National Low-Income Housing Tax Credit Database, property-
 
 The official archive was downloaded and profiled. It is about 29.4 MB. The main file, LIHTCPUB.xlsx, contains a Data sheet with 80 columns. The observed archive includes Excel and Access files and a data dictionary dated April 2026. No CSV was included, so conversion is part of the ingestion plan. Only the main project workbook will be used; the separate building-address workbook has a different row meaning.
 I could not find an accessible HUD LIHTC dataset in BigQuery Public Data from my course environment. The official download is accessible, so I am requesting approval for the external-source route before P1. HUD publishes the database for public access. No separate license file was included in the archive, so public availability is the use-rights evidence submitted for review. I will credit HUD and the release, and keep source rows and extracts out of Git.
+
 After approval, the plan is to convert the workbook to UTF-8 CSV, upload it to an authorized Cloud Storage bucket, and load Lucky SEIS 732.seis732_lihtc.projects. The proposed bucket name is lihtc-hud-data-lucky; its availability and course permissions still need confirmation. The actual project, bucket, and region will be recorded after setup.
+
 The raw schema will preserve all 80 source columns as STRING, including IDs and special year codes. Numeric fields will be converted for analysis. The scripts, schema, and ingestion checklist are included in the repository. These cloud objects are proposed, not already created.
 
 5. Quick source profile   
