@@ -58,7 +58,7 @@ The source provenance and local results are documented in `evidence/p0-feasibili
 ## 6. Need-to-source fit
 
 | Proposed question | Needed fields or concepts | Candidate source object | Why the source appears sufficient | Gap or assumption to test in P1 |
-| --- | --- | --- | --- | --- |
+
 | Cities with the most recorded projects and low-income units | State, city, project ID, valid service year, low-income units | `LIHTCPUB.xlsx`, `Data` | Minnesota has 1,144 records with complete IDs and city labels | Standardize cities and decide how repeated financing affects unit totals |
 | Recorded project counts over time | State, project ID, service year | Same main sheet | 1,143 Minnesota records have usable years from 1987 through 2024 | Choose year or decade views and keep unknown years separate |
 | Low-income share of reported project units by city | City, total units, low-income units | Same main sheet | Both unit fields are populated for Minnesota records | Use matching eligible records and resolve the two inconsistent unit records |
