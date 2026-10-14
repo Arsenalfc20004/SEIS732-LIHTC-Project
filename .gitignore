@@ -12,7 +12,6 @@ Thumbs.db
 .idea/
 
 # Downloaded source data and extracts
-# Allow only the source schema and aggregate profile JSON in Git.
 data/
 downloads/
 exports/
