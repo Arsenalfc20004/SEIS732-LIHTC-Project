@@ -20,7 +20,7 @@ The dashboard will answer:
 3. What share of reported project units is classified as low-income, and how does that share differ across Minnesota cities?
 For the third question, both unit totals will use the same eligible project records. This share describes units in the LIHTC records, not all housing in a city. Reported project activity also does not establish the number of unique new physical units.
 
-4. Source identification and access
+## 4. Source identification and access
 The source is the HUD National Low-Income Housing Tax Credit Database, property-level data, provided by the U.S. Department of Housing and Urban Development.
 - HUD source page (https://www.huduser.gov/portal/datasets/lihtc/property.html)
 - Official download (https://www.huduser.gov/lihtc/lihtcpub.zip)
@@ -33,7 +33,7 @@ After approval, the plan is to convert the workbook to UTF-8 CSV, upload it to a
 
 The raw schema will preserve all 80 source columns as STRING, including IDs and special year codes. Numeric fields will be converted for analysis. The scripts, schema, and ingestion checklist are included in the repository. These cloud objects are proposed, not already created.
 
-5. Quick source profile   
+## 5. Quick source profile   
 The results below come from local profiling of the official workbook. They are not BigQuery query results. The source has ~55,345 records nationwide, including ~1,144 in Minnesota.
 Minnesota check	Observed result
 Project records	~1,144
