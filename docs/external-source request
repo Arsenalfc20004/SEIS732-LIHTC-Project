@@ -1,1 +1,15 @@
+# Request to use HUD's official LIHTC download
 
+I would like to use **Affordable Housing in Minnesota: A Case Study Using HUD LIHTC Data** for my individual project. My intended user is a Minnesota Housing program analyst reviewing project history and reported low-income units by Minnesota city and year.
+
+I could not find an accessible HUD LIHTC dataset in BigQuery Public Data from my course environment. I am therefore requesting approval to use the [official HUD property download](https://www.huduser.gov/portal/datasets/lihtc/property.html) as an external source before P1.
+
+The observed archive is about 29.4 MB. Its main workbook contains 55,345 records nationwide and 1,144 in Minnesota. Local profiling found complete, unique project IDs and 1,143 Minnesota records with usable service years from 1987 through 2024. It also identified two inconsistent Minnesota unit records and one unknown service year. The proposal explains how these issues will be handled.
+
+HUD makes the database publicly accessible and provides a download and query tool. No separate dataset license file was included in the archive. I would credit HUD and the source release, keep source rows and extracts outside Git, and publish only code and aggregate evidence. I have included this use-rights evidence for your review rather than claiming an unverified public-domain license.
+
+After approval, the proposed process is to convert the main workbook to CSV, upload it to a course-authorized Cloud Storage bucket, and load a BigQuery table with an explicit schema. The raw source names, identifiers, and original codes would be preserved. The imported counts would then be compared with the local profile before modeling.
+
+The dashboard would describe historical project activity. It would not claim to establish current housing shortages, vacancies, property risk, or unique new housing units. The first P1 decision concerns how repeated financing rounds should affect unit counts.
+
+Please review the external source and the plan in `docs/p0-feasibility.md` and `docs/ingestion-checklist.md`.
