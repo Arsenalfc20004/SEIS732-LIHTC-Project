@@ -1,17 +1,4 @@
-# Python / Node
-__pycache__/
-*.pyc
-.venv/
-node_modules/
-.ipynb_checkpoints/
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Downloaded source data and extracts
+# Local source data and extracts
 data/
 downloads/
 exports/
@@ -20,7 +7,6 @@ tmp/
 *.csv
 *.tsv
 *.parquet
-*.feather
 *.xlsx
 *.xls
 *.accdb
@@ -28,10 +14,8 @@ tmp/
 *.db
 *.sqlite
 *.json
-!schema/hud_raw_schema.json
-!evidence/p0-local-profile.json
 
-# Credentials / local secrets
+# Credentials and secrets
 .env
 .env.*
 secrets/
@@ -42,11 +26,16 @@ secrets/
 *.token
 *.credentials
 *.secret
-*credentials*.json
-service-account-*.json
-*service-account*.json
-*service_account*.json
-*token*.json
 gcloud-config/
 .config/gcloud/
 
+# Local tools and temporary files
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
