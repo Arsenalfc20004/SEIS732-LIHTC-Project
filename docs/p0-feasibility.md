@@ -1,4 +1,3 @@
-
 # P0 Feasibility Proposal: Affordable Housing in Minnesota
 This proposal requests approval to use HUD's official download as an external source. Local source profiling is complete; instructor approval and the proposed BigQuery load are pending.
 
