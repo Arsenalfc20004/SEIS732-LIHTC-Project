@@ -73,3 +73,7 @@ The source provenance and local results are documented in `evidence/p0-feasibili
 ## 8. First P1 decision
 
 My first decision will be how repeated financing rounds should affect unit counts. The starting grain is one HUD project record per downloaded release. I need to decide whether unit measures describe all recorded activity or a clearly defined subset, and explain that choice before reporting totals.
+
+## 9. AI/tool accountability
+
+I used ChatGPT/Copilot to help identify the official HUD LIHTC source, interpret the data dictionary, draft the feasibility SQL and ingestion plan, and edit the proposal.
