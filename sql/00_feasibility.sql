@@ -1,12 +1,8 @@
 -- GoogleSQL: Minnesota affordable-housing case study.
--- Prepared for the proposed imported table AFTER instructor approval.
--- No BigQuery queries have been executed for this P0 submission.
--- validator estimates before execution. All 80 raw columns are STRING.
-
 -- 01: Inspect the imported schema.
 SELECT column_name, data_type, is_nullable
-FROM `YOUR_COURSE_PROJECT.lucky_lihtc.INFORMATION_SCHEMA.COLUMNS`
-WHERE table_name = 'projects'
+FROM `lucky-seis-732.INFORMATION_SCHEMA.COLUMNS`
+WHERE table_name = 'lucky-seis-732'
 ORDER BY ordinal_position;
 
 -- 02: Reconcile the national and Minnesota counts and source keys.
@@ -15,7 +11,7 @@ SELECT
   COUNTIF(UPPER(TRIM(proj_st)) = 'MN') AS mn_row_count,
   COUNTIF(hud_id IS NULL OR TRIM(hud_id) = '') AS missing_hud_ids,
   COUNT(DISTINCT NULLIF(TRIM(hud_id), '')) AS distinct_nonblank_hud_ids
-FROM `YOUR_COURSE_PROJECT.lucky_lihtc.projects`;
+FROM `lucky-seis-732`;
 
 -- 03: Count duplicate-key groups without returning project identifiers.
 SELECT
@@ -23,7 +19,7 @@ SELECT
   COALESCE(SUM(n - 1), 0) AS excess_rows_for_repeated_keys
 FROM (
   SELECT TRIM(hud_id) AS key_value, COUNT(*) AS n
-  FROM `YOUR_COURSE_PROJECT.lucky_lihtc.projects`
+  FROM `lucky-seis-732`
   WHERE NULLIF(TRIM(hud_id), '') IS NOT NULL
   GROUP BY key_value
   HAVING COUNT(*) > 1
@@ -38,7 +34,7 @@ WITH mn AS (
     SAFE_CAST(NULLIF(TRIM(yr_pis), '') AS INT64) AS service_year,
     SAFE_CAST(NULLIF(TRIM(n_units), '') AS NUMERIC) AS total_units,
     SAFE_CAST(NULLIF(TRIM(li_units), '') AS NUMERIC) AS low_income_units
-  FROM `YOUR_COURSE_PROJECT.lucky_lihtc.projects`
+  FROM `lucky-seis-732`
   WHERE UPPER(TRIM(proj_st)) = 'MN'
 )
 SELECT
@@ -67,21 +63,19 @@ FROM mn;
 SELECT
   SAFE_CAST(NULLIF(TRIM(yr_pis), '') AS INT64) AS service_year,
   COUNT(*) AS project_record_count
-FROM `YOUR_COURSE_PROJECT.lucky_lihtc.projects`
+FROM `lucky-seis-732`
 WHERE UPPER(TRIM(proj_st)) = 'MN'
   AND SAFE_CAST(NULLIF(TRIM(yr_pis), '') AS INT64) BETWEEN 1987 AND 2024
 GROUP BY service_year
 ORDER BY service_year;
 
 -- 06: City-level aggregate feasibility check.
--- Both unit sums use the SAME eligible records. The measures describe
--- reported project activity, not unique physical housing stock.
 WITH cohort AS (
   SELECT
     COALESCE(NULLIF(UPPER(TRIM(proj_cty)), ''), 'UNKNOWN') AS city_label,
     SAFE_CAST(NULLIF(TRIM(n_units), '') AS NUMERIC) AS total_units,
     SAFE_CAST(NULLIF(TRIM(li_units), '') AS NUMERIC) AS low_income_units
-  FROM `YOUR_COURSE_PROJECT.lucky_lihtc.projects`
+  FROM `lucky-seis-732`
   WHERE UPPER(TRIM(proj_st)) = 'MN'
     AND SAFE_CAST(NULLIF(TRIM(yr_pis), '') AS INT64) BETWEEN 1987 AND 2024
 ), classified AS (
