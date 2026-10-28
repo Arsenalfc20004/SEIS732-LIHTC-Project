@@ -15,7 +15,7 @@ I will use the following names consistently in this plan:
 
 | Resource | Proposed value |
 | --- | --- |
-| Google Cloud project ID | `seis-lihtc-project` |
+| Google Cloud project ID | `lucky-seis-732` |
 | BigQuery dataset | `HUD_LIHTC` |
 | BigQuery table | `projects` |
 | Cloud Storage bucket | `lihtc-hud-data-seis732` |
@@ -44,7 +44,7 @@ I will keep the all-state source in one raw table and select Minnesota in the an
 The full SQL destination is `seis-lihtc-project.HUD_LIHTC.projects`. Once the actual project ID and dataset are confirmed, I will run this definition to create the empty table:
 
 ```sql
-CREATE TABLE `seis-lihtc-project.HUD_LIHTC.projects` (
+CREATE TABLE `lucky-seis-732.HUD_LIHTC.projects` (
   hud_id STRING,
   project STRING,
   proj_add STRING,
@@ -134,7 +134,7 @@ I will use Cloud Shell to load the CSV after creating the table. First, I will s
 
 ```bash
 bq show --schema --format=prettyjson \
-  seis-lihtc-project:HUD_LIHTC.projects > /tmp/hud-lihtc-schema.json
+  lucky-seis-732:HUD_LIHTC.projects > /tmp/hud-lihtc-schema.json
 ```
 
 After confirming that this file contains all 80 STRING columns, I will run:
@@ -158,7 +158,7 @@ The SQL table path uses `project.dataset.table`. The command-line destination us
 
 ## 5. Validate and record results
 
-I will confirm that `sql/00_feasibility.sql` uses the actual project ID and the same `HUD_LIHTC.projects` destination. The supplied queries currently use the proposed ID, `seis-lihtc-project`. I will run the statements one at a time in the confirmed location, checking estimated bytes before execution and following the course's query-cost controls.
+I will confirm that `sql/00_feasibility.sql` uses the actual project ID and the same `HUD_LIHTC.projects` destination. The supplied queries currently use the proposed ID, `lucky-seis-732`. I will run the statements one at a time in the confirmed location, checking estimated bytes before execution and following the course's query-cost controls.
 
 For the profiled release, I will compare the loaded results with:
 
