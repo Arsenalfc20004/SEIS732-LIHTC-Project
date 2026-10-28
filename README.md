@@ -28,6 +28,5 @@ The root `.gitignore` excludes downloaded data, extracts, local settings, and cr
 
 ## Submission
 
-These seven repository files are the P0 submission package. Submit the exact GitHub commit or tag link required by the course. If the repository is private, add instructor **37chandler** as a collaborator.
+These seven repository files are the P0 submission package.
 
-The external-source request is included for instructor review. Approval is required before P1.
