@@ -23,10 +23,3 @@ My proposed raw table is `SEIS-HUD_LIHTC.Projects`, with the CSV at `gs://lihtc-
 | [Feasibility SQL](sql/00_feasibility.sql) | Reproducible schema, count, key, year, geography, and unit checks after loading |
 | [Feasibility results](evidence/p0-feasibility-results.md) | Compact local source evidence and the status of cloud validation |
 | [External-source request](docs/external-source-request.md) | Request for instructor approval before P1 |
-
-The root `.gitignore` excludes downloaded data, extracts, local settings, and credentials. Keep source rows and the HUD workbook outside Git; submit code and aggregate evidence.
-
-## Submission
-
-These seven repository files are the P0 submission package.
-
