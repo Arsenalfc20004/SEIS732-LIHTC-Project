@@ -14,8 +14,8 @@ Instructor has approved the HUD source with conditions. The P0 local profile is 
 | Location | Planned as `US` |
 | Selected source | `LIHTCPUB.xlsx`, sheet `Data` |
 | P0 archive SHA-256 | `e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288` |
-| Checksum of the archive used | Not yet recorded |
-| Exported CSV SHA-256 | Not yet recorded |
+| Checksum of the archive used | Downloads\projects.csv |
+| Exported CSV SHA-256 | Downloads\projects.csv|
 | CSV header and record count | Not yet recorded; expect 80 fields and 55,345 data rows for the pinned input |
 | Load job ID, status, and time | Not yet recorded |
 
