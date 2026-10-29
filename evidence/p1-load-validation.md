@@ -1,49 +1,64 @@
-# My HUD source and load checks
+# My HUD source and BigQuery checks
 
 ## Current progress
 
-Instructor has approved the HUD source with conditions. The P0 local profile is documented separately. I will use this file to record the actual cloud resources, load job, and BigQuery comparisons; these results still need to be entered.
+The CSV is loaded at `lucky-seis-732.HUD_LIHTC.projects`. I reported 55,345 nationwide rows and 1,144 Minnesota rows, then confirmed that all 14 rows in the supplied comparison query returned MATCH. The results below are transcribed from those reported outputs. ChatGPT did not run these queries in my account.
 
-## File and destination record
+**Record date:** October 28, 2026, America/Chicago. This is the date the results were recorded; exact query execution timestamps and job IDs have not been captured here.
+
+## Source and destination
 
 | Item | Current record |
 | --- | --- |
 | Project | `lucky-seis-732` |
-| Destination | `lucky-seis-732.HUD_LIHTC.projects` |
-| CSV object | `gs://lihtc-hud-data-seis732/projects.csv` |
-| Location | Planned as `US` |
-| Selected source | `LIHTCPUB.xlsx`, sheet `Data` |
-| P0 archive SHA-256 | `e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288` |
-| Checksum of the archive used | Downloads\projects.csv |
-| Exported CSV SHA-256 | Downloads\projects.csv|
-| CSV header and record count | Not yet recorded; expect 80 fields and 55,345 data rows for the pinned input |
-| Load job ID, status, and time | Not yet recorded |
+| Dataset and table | `HUD_LIHTC.projects` |
+| Full destination | `lucky-seis-732.HUD_LIHTC.projects` |
+| Uploaded source object | `gs://lihtc-hud-data-seis732/projects.csv` |
+| Location | `US` specified by the supplied loading SQL |
+| Source selected in the P0 record | October 13, 2026 acquisition; `LIHTCPUB.xlsx`, worksheet `Data`; April 2026 dictionary covering 1987–2024 |
+| P0 archive SHA-256 reference | `e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288` |
+| Actual archive checksum | Not yet recorded; the reference above has not been independently reverified for this load |
+| Exported CSV SHA-256 | Not yet recorded |
+| Independent local CSV header/count check | Not reported; the loaded table has 80 STRING columns and 55,345 rows |
+| Load-job ID, displayed status, and exact time | Not yet recorded; table access is confirmed by the reported queries |
+| Query estimates and bytes processed | Not yet recorded |
 
-## Schema comparison
+## Observed comparison results
 
-I will run statement 1 in `sql/02_validate_load.sql` and enter all six output values here. For the planned schema, I expect `actual_columns = 80`, zero missing columns, zero wrong types, zero wrong positions, zero unexpected columns, and `schema_result = MATCH`.
+Statements 4 and 5 in `sql/01_source_profile.sql` reproduce the checks used for this record. Statement 4 is the nationwide/Minnesota count. Statement 5 is the 14-row key, date, unit, and column comparison. The repeated Minnesota total appears once in this combined summary.
 
-**Actual result:** Not yet recorded.
+| Check | P0 reference | Reported BigQuery result | Conclusion |
+| --- | ---: | ---: | --- |
+| Nationwide records | 55,345 | 55,345 | MATCH |
+| Minnesota records | 1,144 | 1,144 | MATCH |
+| Missing IDs | 0 | 0 | MATCH |
+| Distinct nonblank IDs | 1,144 | 1,144 | MATCH |
+| Repeated ID groups | 0 | 0 | MATCH |
+| Excess duplicate-key rows | 0 | 0 | MATCH |
+| Valid service-year records | 1,143 | 1,143 | MATCH |
+| Unknown year code 9999 | 1 | 1 | MATCH |
+| First valid service year | 1,987 | 1,987 | MATCH |
+| Last valid service year | 2,024 | 2,024 | MATCH |
+| Missing total units | 0 | 0 | MATCH |
+| Missing low-income units | 0 | 0 | MATCH |
+| Low-income units exceed total | 2 | 2 | MATCH |
+| Table columns | 80 | 80 | MATCH |
+| Columns not STRING | 0 | 0 | MATCH |
 
-## Counts and field checks
+## Grain conclusion
 
-Statement 2 in `sql/02_validate_load.sql` compares 25 aggregate checks with the P0 profile. I will add its result table here, keeping the reference and observed BigQuery values clearly labeled.
+The loaded Minnesota input has 1,144 records, 1,144 distinct nonblank HUD IDs, no missing IDs, and no repeated-ID groups or excess duplicate-key rows. This supports one HUD project record per ID in the loaded snapshot. It does not establish unique physical housing across financing rounds. The planned fact will use the verified release identifier with `hud_id` when retaining multiple releases.
 
-**Actual results:** Not yet recorded.
+## Scope of the checks
 
-For each query, I will record the date, job location, estimated bytes, and actual bytes processed. If a check says REVIEW, I will record the difference, investigate the source and load settings, and explain what I changed or learned. A new input needs a new baseline; changing an old reference just to produce MATCH would not establish agreement.
+The observed schema checks confirm 80 columns and STRING types. The supplied load statement declares the 80 field names and their order, but a separate execution of the full name/order audit in `sql/02_validate_load.sql` has not been reported. Its additional checks remain available; this evidence does not claim that all 25 checks in that file were run.
 
-## Grain check for P1
+Matching aggregates support agreement on these tested properties. They do not prove byte-for-byte file identity or accuracy of every source value. I still need to confirm the exact source input against the P0 release record and enter its actual hashes.
 
-I will run the first statement in `sql/01_source_profile.sql`. For the pinned Minnesota input, I expect 1,144 source rows, 1,144 distinct nonblank IDs, zero missing IDs, zero repeated-ID groups, and zero excess rows. I will put the observed result beside the grain explanation in `docs/p1-plan.md` and link back to this evidence.
+## Interpretation and next step
 
-**Actual grain result:** Not yet recorded.
+I will retain the unknown-year project for reconciliation and exclude it from the 1987–2024 audience filter. The two inconsistent unit records remain in project counts, with unit measures excluded until resolved. Their overlap with the valid-year cohort still needs to be measured.
 
-## What the results mean
+The product will describe reported project activity and reported units, preserve resyndication information, and use the same eligible records in both parts of a unit-share calculation.
 
-The checks will show whether the imported table agrees with the selected source on the tested fields and counts. They will not establish that each HUD ID represents different physical housing. My analysis will describe reported LIHTC project activity and reported units, preserve special year codes and resyndication information, and use the same eligible records for both parts of any unit-share calculation.
-
-## My decision after the checks
-
-Pending. I will record whether the imported table is ready to use, explain any unresolved difference, and link the result from my P1 plan. Until loading is complete, P1 can use the supported local grain result, subject to any deadline in my instructor's source conditions.
-
+**Decision:** The observed grain, year, unit, and column checks support proceeding with the proposed P1 model. Before registering the warehouse release key, I will finish the actual source-file verification. The M07 peer-feedback memo is still awaiting my class feedback.
