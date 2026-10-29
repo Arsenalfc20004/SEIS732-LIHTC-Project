@@ -17,11 +17,12 @@ The CSV is loaded at `lucky-seis-732.HUD_LIHTC.projects`. I reported 55,345 nati
 | Location | `US` specified by the supplied loading SQL |
 | Source selected in the P0 record | October 13, 2026 acquisition; `LIHTCPUB.xlsx`, worksheet `Data`; April 2026 dictionary covering 1987–2024 |
 | P0 archive SHA-256 reference | `e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288` |
-| Actual archive checksum | Not yet recorded; the reference above has not been independently reverified for this load |
-| Exported CSV SHA-256 | Not yet recorded |
+| Actual archive checksum | E07ACEE706174B276F89596D614AC5699EFA9848659E5834FDFB5198FA0A7288 |
+| Exported CSV SHA-256 | 8A0C8B5596BF2E192437D4024383D3A119C78BEE5DE562058737E51982228335 |
 | Independent local CSV header/count check | Not reported; the loaded table has 80 STRING columns and 55,345 rows |
-| Load-job ID, displayed status, and exact time | Not yet recorded; table access is confirmed by the reported queries |
-| Query estimates and bytes processed | Not yet recorded |
+| Load-job ID, displayed status, and exact time | lucky-seis-732:US.job_mBYqbsGysemj4Zr8OVw02T49Yv7M, processed,  Creation time
+28 Oct 2026, 22:04:22 UTC-5 / Start time 28 Oct 2026, 22:04:22 UTC-5 / End time 28 Oct 2026, 22:04:29 UTC-5 |
+| Query estimates and bytes processed | Query estimate not recorded, bytes processed 0|
 
 ## Observed comparison results
 
