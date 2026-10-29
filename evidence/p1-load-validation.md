@@ -8,11 +8,11 @@ Instructor has approved the HUD source with conditions. The P0 local profile is 
 
 | Item | Current record |
 | --- | --- |
-| Project | `lucky-seis-732`; from my class SQL. HUD loading permissions still need confirmation |
-| Destination | `lucky-seis-732.HUD_LIHTC.projects`; creation not yet recorded |
-| CSV object | `gs://lihtc-hud-data-seis732/projects.csv`; bucket and upload not yet confirmed |
-| Location | Planned as `US`; actual bucket and dataset locations still need to be recorded |
-| Selected source | `LIHTCPUB.xlsx`, sheet `Data`, October 13, 2026 acquisition recorded in P0 |
+| Project | `lucky-seis-732` |
+| Destination | `lucky-seis-732.HUD_LIHTC.projects` |
+| CSV object | `gs://lihtc-hud-data-seis732/projects.csv` |
+| Location | Planned as `US` |
+| Selected source | `LIHTCPUB.xlsx`, sheet `Data` |
 | P0 archive SHA-256 | `e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288` |
 | Checksum of the archive used | Not yet recorded |
 | Exported CSV SHA-256 | Not yet recorded |
