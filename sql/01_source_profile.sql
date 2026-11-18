@@ -83,9 +83,85 @@ SELECT
 FROM classified;
 
 -- 3. Inspect the imported schema, without returning source rows.
--- Reuse sql/02_validate_load.sql for the full 80-column order/type comparison.
 SELECT column_name, data_type, is_nullable, ordinal_position
 FROM `lucky-seis-732.HUD_LIHTC.INFORMATION_SCHEMA.COLUMNS`
 WHERE table_name = 'projects'
 ORDER BY ordinal_position;
+
+-- 4. Executed row-count check
+-- Reported result: national_rows 55345; minnesota_rows 1144.
+SELECT
+  COUNT(*) AS national_rows,
+  COUNTIF(UPPER(TRIM(proj_st)) = 'MN') AS minnesota_rows
+FROM `lucky-seis-732.HUD_LIHTC.projects`;
+
+-- 5. Executed P1 comparison reported as all 14 rows MATCH.
+-- These checks cover column count/types, not all column names or positions.
+WITH mn AS (
+  SELECT
+    NULLIF(TRIM(hud_id), '') AS project_id,
+    SAFE_CAST(yr_pis AS INT64) AS service_year,
+    SAFE_CAST(n_units AS NUMERIC) AS total_units,
+    SAFE_CAST(li_units AS NUMERIC) AS low_income_units
+  FROM `lucky-seis-732.HUD_LIHTC.projects`
+  WHERE UPPER(TRIM(proj_st)) = 'MN'
+),
+id_groups AS (
+  SELECT project_id, COUNT(*) AS rows_per_id
+  FROM mn
+  WHERE project_id IS NOT NULL
+  GROUP BY project_id
+),
+counts AS (
+  SELECT
+    COUNT(*) AS mn_rows,
+    COUNTIF(project_id IS NULL) AS missing_ids,
+    COUNT(DISTINCT project_id) AS distinct_ids,
+    COUNTIF(service_year BETWEEN 1987 AND 2024) AS valid_year_rows,
+    COUNTIF(service_year = 9999) AS unknown_year_rows,
+    MIN(IF(service_year BETWEEN 1987 AND 2024,
+           service_year, NULL)) AS first_valid_year,
+    MAX(IF(service_year BETWEEN 1987 AND 2024,
+           service_year, NULL)) AS last_valid_year,
+    COUNTIF(total_units IS NULL) AS missing_total_units,
+    COUNTIF(low_income_units IS NULL) AS missing_low_income_units,
+    COUNTIF(low_income_units > total_units) AS inconsistent_units,
+    (SELECT COUNTIF(rows_per_id > 1)
+     FROM id_groups) AS repeated_id_groups,
+    (SELECT COALESCE(SUM(rows_per_id - 1), 0)
+     FROM id_groups) AS excess_duplicate_rows
+  FROM mn
+),
+schema_check AS (
+  SELECT
+    COUNT(*) AS column_count,
+    COUNTIF(data_type != 'STRING') AS non_string_columns
+  FROM `lucky-seis-732.HUD_LIHTC.INFORMATION_SCHEMA.COLUMNS`
+  WHERE table_name = 'projects'
+)
+SELECT
+  v.check_name,
+  v.expected,
+  v.observed,
+  IF(v.observed = v.expected, 'MATCH', 'REVIEW') AS result
+FROM counts AS c
+CROSS JOIN schema_check AS s
+CROSS JOIN UNNEST([
+  STRUCT('Minnesota records' AS check_name,
+         1144 AS expected, c.mn_rows AS observed),
+  STRUCT('Missing IDs', 0, c.missing_ids),
+  STRUCT('Distinct nonblank IDs', 1144, c.distinct_ids),
+  STRUCT('Repeated ID groups', 0, c.repeated_id_groups),
+  STRUCT('Excess duplicate-key rows', 0, c.excess_duplicate_rows),
+  STRUCT('Valid service-year records', 1143, c.valid_year_rows),
+  STRUCT('Unknown year code 9999', 1, c.unknown_year_rows),
+  STRUCT('First valid service year', 1987, c.first_valid_year),
+  STRUCT('Last valid service year', 2024, c.last_valid_year),
+  STRUCT('Missing total units', 0, c.missing_total_units),
+  STRUCT('Missing low-income units', 0, c.missing_low_income_units),
+  STRUCT('Low-income units exceed total', 2, c.inconsistent_units),
+  STRUCT('Table columns', 80, s.column_count),
+  STRUCT('Columns not STRING', 0, s.non_string_columns)
+]) AS v WITH OFFSET AS check_order
+ORDER BY check_order;
 
