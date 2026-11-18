@@ -1,7 +1,7 @@
 -- P2 / 03: build the P1 Minnesota star model. GoogleSQL; US.
 DECLARE v_archive_sha256 STRING DEFAULT 'e07acee706174b276f89596d614ac5699efa9848659e5834fdfb5198fa0a7288';
 DECLARE v_source_confirmed BOOL DEFAULT TRUE; -- declaration used for this recorded P2 input
-DECLARE v_acquisition_date DATE DEFAULT NULL;
+DECLARE v_acquisition_date DATE 10-13-2026;
 DECLARE v_run_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP();
 DECLARE v_release_key STRING DEFAULT LOWER(TRIM(v_archive_sha256));
 DECLARE v_rule_version STRING DEFAULT 'p2_v1';
