@@ -24,6 +24,6 @@ My proposed raw table is `SEIS-HUD_LIHTC.Projects`, with the CSV at `gs://lihtc-
 | [Feasibility results](evidence/p0-feasibility-results.md) | Compact local source evidence and the status of cloud validation |
 | [External-source request](docs/external-source-request.md) | Request for instructor approval before P1 |
 | [P2 build note](docs/p2-build.md) | documents the Minnesota HUD LIHTC input, curation rules, execution order, acceptance checks, and field trace |
-| [Raw verification and optional recovery load](sql/02_ingest.sql) |
-| [Curated build](sql/03_curate.sql) |
-| [Acceptance checks](sql/04_acceptance.sql |
+- [Raw verification and optional recovery load](sql/02_ingest.sql) 
+- [Curated build](sql/03_curate.sql) 
+- [Acceptance checks](sql/04_acceptance.sql) 
